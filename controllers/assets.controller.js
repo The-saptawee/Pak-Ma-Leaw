@@ -12,18 +12,17 @@ exports.create = (req, res) => {
     return;
   }
 
-  console.log("hihi");
   // Create a Tutorial
   const asset = {
-        capital: req.body.capital,
+    capital: req.body.capital,
     income: req.body.income,
-        expenditure: req.body.expenditure,
+    expenditure: req.body.expenditure,
     lucre: req.body.lucre,
     down_at_heel: req.body.down_at_heel,
-    date:req.body.date,
+    date: req.body.date,
     published: req.body.published ? req.body.published : false,
   };
-  console.log(asset);
+
   // Save Tutorial in the database
   Assets.create(asset)
     .then((data) => {
@@ -48,8 +47,7 @@ exports.findAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving Assets.",
+        message: err.message || "Some error occurred while retrieving Assets.",
       });
     });
 };
@@ -102,8 +100,6 @@ exports.update = (req, res) => {
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-
-  console.log("delete");
   const id = req.params.id;
 
   Assets.destroy({

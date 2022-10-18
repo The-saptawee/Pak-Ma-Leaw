@@ -1,14 +1,13 @@
+require("dotenv").config();
+
 const Sequelize = require("sequelize");
-// const sequelize = new Sequelize(
-//   "postgresql://pak_local:aa010203@localhost:5432/pak_local?sslmode=disable"
-// );
 
 const sequelize = new Sequelize(
-  "pak_local", // นี่เป็นชื่อ DB ของเราน
-  "postgres", // user ที่ใช้สรการเข้าไปยัง db
-  "12345678", // password
+  process.env.DB_NAME, // นี่เป็นชื่อ DB ของเราน
+  process.env.DB_USER, // user ที่ใช้สรการเข้าไปยัง db
+  process.env.DB_PASSWORD, // password
   {
-    host: "localhost", // host ของ db ที่เราสร้างเอาไว้
+    host: process.env.DB_HOST, // host ของ db ที่เราสร้างเอาไว้
     dialect: "postgres", // 'mysql' | 'mariadb' | 'postgres' | 'mssql'   พวกนี้ใช่ก็ใช้ได้นะจ๊ะ
     define: {
       timestamps: false, //ส่วนตรงนี้ก็เป็นการตั้งค่าเพิ่มเติม
@@ -21,19 +20,19 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.role = require("./role.model.js")(sequelize, Sequelize);
+db.role = require("./roles.model.js")(sequelize, Sequelize);
 db.customers = require("./customers.model")(sequelize, Sequelize);
 db.hrs = require("./hrs.model")(sequelize, Sequelize);
 db.factories = require("./factories.model")(sequelize, Sequelize);
 db.products = require("./products.model")(sequelize, Sequelize);
-db.order_detials = require("./order_detials.model")(sequelize, Sequelize);
-db.orders = require("./order.model")(sequelize, Sequelize);
+db.order_details = require("./order_details.model")(sequelize, Sequelize);
+db.orders = require("./orders.model")(sequelize, Sequelize);
 db.shippings = require("./shippings.model")(sequelize, Sequelize);
-db.vondors = require("./vondor.model")(sequelize, Sequelize);
-db.packing = require("./packing.model")(sequelize, Sequelize);
-db.materails = require("./materail.model")(sequelize, Sequelize);
+db.vendors = require("./vendor.model")(sequelize, Sequelize);
+db.packings = require("./packings.model")(sequelize, Sequelize);
+db.materials = require("./materials.model")(sequelize, Sequelize);
 db.assets = require("./assets.model")(sequelize, Sequelize);
-db.typeo = require("./typeo.model")(sequelize, Sequelize);
+db.types = require("./types.model")(sequelize, Sequelize);
 
 module.exports = db;
 

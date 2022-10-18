@@ -12,13 +12,12 @@ exports.create = (req, res) => {
     return;
   }
 
-  console.log("hihi");
   // Create a Tutorial
   const roles = {
-    name:req.body.name,
+    name: req.body.name,
     published: req.body.published ? req.body.published : false,
   };
-  console.log(roles);
+
   // Save Tutorial in the database
   Role.create(roles)
     .then((data) => {
@@ -26,8 +25,7 @@ exports.create = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Role.",
+        message: err.message || "Some error occurred while creating the Role.",
       });
     });
 };
@@ -43,8 +41,7 @@ exports.findAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving Role.",
+        message: err.message || "Some error occurred while retrieving Role.",
       });
     });
 };
@@ -97,8 +94,6 @@ exports.update = (req, res) => {
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-
-  console.log("delete");
   const id = req.params.id;
 
   Role.destroy({

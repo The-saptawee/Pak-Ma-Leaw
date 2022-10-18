@@ -1,49 +1,48 @@
 const db = require("../models");
-const Tutorial = db.tutorials;
+const Orders = db.orders;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.customers_id) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
     return;
   }
+
   // Create a Tutorial
-  const tutorial = {
-    title: req.body.title,
-    description: req.body.description,
+  const orders = {
+    customers_id: req.body.customers_id,
+    order_details_id: req.body.order_details_id,
     published: req.body.published ? req.body.published : false,
   };
-  console.log(tutorial);
+
   // Save Tutorial in the database
-  Tutorial.create(tutorial)
+  Orders.create(orders)
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Tutorial.",
+        message: err.message || "Some error occurred while creating the Order.",
       });
     });
 };
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+  const name = req.query.name;
+  var condition = name ? { title: { [Op.like]: `%${name}%` } } : null;
 
-  Tutorial.findAll({ where: condition })
+  Orders.findAll({ where: condition })
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials.",
+        message: err.message || "Some error occurred while retrieving Order.",
       });
     });
 };
@@ -52,19 +51,19 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.findByPk(id)
+  Orders.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Tutorial with id=${id}.`,
+          message: `Cannot find Order with id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Tutorial with id=" + id,
+        message: "Error retrieving Order with id=" + id,
       });
     });
 };
@@ -73,23 +72,23 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.update(req.body, {
+  Orders.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was updated successfully.",
+          message: "Order was updated successfully.",
         });
       } else {
         res.send({
-          message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`,
+          message: `Cannot update Order with id=${id}. Maybe Order was not found or req.body is empty!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Tutorial with id=" + id,
+        message: "Error updating Order with id=" + id,
       });
     });
 };
@@ -98,23 +97,23 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.destroy({
+  Orders.destroy({
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was deleted successfully!",
+          message: "Order was deleted successfully!",
         });
       } else {
         res.send({
-          message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`,
+          message: `Cannot delete Order with id=${id}. Maybe Order was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Tutorial with id=" + id,
+        message: "Could not delete Order with id=" + id,
       });
     });
 };

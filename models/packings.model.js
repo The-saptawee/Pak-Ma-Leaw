@@ -1,12 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
-  const Packing = sequelize.define("packing", {
+  const Packings = sequelize.define("packings", {
     transport: {
       type: Sequelize.STRING,
     },
     arrived: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
   });
 
-  return Packing;
+  return Packings;
 };

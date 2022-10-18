@@ -1,24 +1,28 @@
+require("dotenv").config();
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const logger = require("./logger");
+
 const db = require("./models");
+
 const customers = require("./controllers/customers.controller");
 const hrs = require("./controllers/hrs.controller");
 const factories = require("./controllers/factories.controller");
 const products = require("./controllers/products.controller");
-const order_detials = require("./controllers/order_detials.controller");
-const order = require("./controllers/order.controller");
-const shipping = require("./controllers/shippings.controller");
-const vondor = require("./controllers/vondors.controller");
-const packing = require("./controllers/packing.controller");
-const materail = require("./controllers/materail.controller");
-const asset = require("./controllers/assets.controller");
-const roles = require("./controllers/role.controller");
-const typeo = require("./controllers/typeo.controller");
+const order_details = require("./controllers/order_details.controller");
+const orders = require("./controllers/orders.controller");
+const shippings = require("./controllers/shippings.controller");
+const vendors = require("./controllers/vendors.controller");
+const packings = require("./controllers/packings.controller");
+const materials = require("./controllers/materials.controller");
+const assets = require("./controllers/assets.controller");
+const roles = require("./controllers/roles.controller");
+const types = require("./controllers/types.controller");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const pathApi = "/api";
 
 app.use(bodyParser.json());
@@ -85,70 +89,70 @@ app.get(pathApi + "/", (req, res) => {
 }
 // Order_detials api
 {
-  app.post(pathApi + "/order_detials" + "/create", order_detials.create);
-  app.get(pathApi + "/order_detials" + "/", order_detials.findAll);
-  app.get(pathApi + "/order_detials" + "/:id", order_detials.findOne);
-  app.put(pathApi + "/order_detials" + "/:id", order_detials.update);
+  app.post(pathApi + "/order_detials" + "/create", order_details.create);
+  app.get(pathApi + "/order_detials" + "/", order_details.findAll);
+  app.get(pathApi + "/order_detials" + "/:id", order_details.findOne);
+  app.put(pathApi + "/order_detials" + "/:id", order_details.update);
   app.delete(
     pathApi + "/order_detials" + "/delete" + "/:id",
-    order_detials.delete
+    order_details.delete
   );
 }
 // Order
 {
-  app.post(pathApi + "/order" + "/create", order.create);
-  app.get(pathApi + "/order" + "/", order.findAll);
-  app.get(pathApi + "/order" + "/:id", order.findOne);
-  app.put(pathApi + "/order" + "/:id", order.update);
-  app.delete(pathApi + "/order" + "/delete" + "/:id", order.delete);
+  app.post(pathApi + "/order" + "/create", orders.create);
+  app.get(pathApi + "/order" + "/", orders.findAll);
+  app.get(pathApi + "/order" + "/:id", orders.findOne);
+  app.put(pathApi + "/order" + "/:id", orders.update);
+  app.delete(pathApi + "/order" + "/delete" + "/:id", orders.delete);
 }
 // shipping api
 {
-  app.post(pathApi + "/shipping" + "/create", shipping.create);
-  app.get(pathApi + "/shipping" + "/", shipping.findAll);
-  app.get(pathApi + "/shipping" + "/:id", shipping.findOne);
-  app.put(pathApi + "/shipping" + "/:id", shipping.update);
-  app.delete(pathApi + "/shipping" + "/delete" + "/:id", shipping.delete);
+  app.post(pathApi + "/shipping" + "/create", shippings.create);
+  app.get(pathApi + "/shipping" + "/", shippings.findAll);
+  app.get(pathApi + "/shipping" + "/:id", shippings.findOne);
+  app.put(pathApi + "/shipping" + "/:id", shippings.update);
+  app.delete(pathApi + "/shipping" + "/delete" + "/:id", shippings.delete);
 }
 // vondor api
 {
-  app.post(pathApi + "/vondor" + "/create", vondor.create);
-  app.get(pathApi + "/vondor" + "/", vondor.findAll);
-  app.get(pathApi + "/vondor" + "/:id", vondor.findOne);
-  app.put(pathApi + "/vondor" + "/:id", vondor.update);
-  app.delete(pathApi + "/vondor" + "/delete" + "/:id", vondor.delete);
+  app.post(pathApi + "/vondor" + "/create", vendors.create);
+  app.get(pathApi + "/vondor" + "/", vendors.findAll);
+  app.get(pathApi + "/vondor" + "/:id", vendors.findOne);
+  app.put(pathApi + "/vondor" + "/:id", vendors.update);
+  app.delete(pathApi + "/vondor" + "/delete" + "/:id", vendors.delete);
 }
 // packing api
 {
-  app.post(pathApi + "/packing" + "/create", packing.create);
-  app.get(pathApi + "/packing" + "/", packing.findAll);
-  app.get(pathApi + "/packing" + "/:id", packing.findOne);
-  app.put(pathApi + "/packing" + "/:id", packing.update);
-  app.delete(pathApi + "/packing" + "/delete" + "/:id", packing.delete);
+  app.post(pathApi + "/packing" + "/create", packings.create);
+  app.get(pathApi + "/packing" + "/", packings.findAll);
+  app.get(pathApi + "/packing" + "/:id", packings.findOne);
+  app.put(pathApi + "/packing" + "/:id", packings.update);
+  app.delete(pathApi + "/packing" + "/delete" + "/:id", packings.delete);
 }
 // materail api
 {
-  app.post(pathApi + "/materail" + "/create", materail.create);
-  app.get(pathApi + "/materail" + "/", materail.findAll);
-  app.get(pathApi + "/materail" + "/:id", materail.findOne);
-  app.put(pathApi + "/materail" + "/:id", materail.update);
-  app.delete(pathApi + "/materail" + "/delete" + "/:id", materail.delete);
+  app.post(pathApi + "/materail" + "/create", materials.create);
+  app.get(pathApi + "/materail" + "/", materials.findAll);
+  app.get(pathApi + "/materail" + "/:id", materials.findOne);
+  app.put(pathApi + "/materail" + "/:id", materials.update);
+  app.delete(pathApi + "/materail" + "/delete" + "/:id", materials.delete);
 }
 // asset api
 {
-  app.post(pathApi + "/asset" + "/create", asset.create);
-  app.get(pathApi + "/asset" + "/", asset.findAll);
-  app.get(pathApi + "/asset" + "/:id", asset.findOne);
-  app.put(pathApi + "/asset" + "/:id", asset.update);
-  app.delete(pathApi + "/asset" + "/delete" + "/:id", asset.delete);
+  app.post(pathApi + "/asset" + "/create", assets.create);
+  app.get(pathApi + "/asset" + "/", assets.findAll);
+  app.get(pathApi + "/asset" + "/:id", assets.findOne);
+  app.put(pathApi + "/asset" + "/:id", assets.update);
+  app.delete(pathApi + "/asset" + "/delete" + "/:id", assets.delete);
 }
 // type api
 {
-  app.post(pathApi + "/type" + "/create", typeo.create);
-  app.get(pathApi + "/type" + "/", typeo.findAll);
-  app.get(pathApi + "/type" + "/:id", typeo.findOne);
-  app.put(pathApi + "/type" + "/:id", typeo.update);
-  app.delete(pathApi + "/type" + "/delete" + "/:id", typeo.delete);
+  app.post(pathApi + "/type" + "/create", types.create);
+  app.get(pathApi + "/type" + "/", types.findAll);
+  app.get(pathApi + "/type" + "/:id", types.findOne);
+  app.put(pathApi + "/type" + "/:id", types.update);
+  app.delete(pathApi + "/type" + "/delete" + "/:id", types.delete);
 }
 
 // Run the server

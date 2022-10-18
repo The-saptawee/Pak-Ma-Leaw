@@ -1,9 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
-  const Typeo = sequelize.define("typeo", {
+  const Types = sequelize.define("types", {
     name: {
       type: Sequelize.STRING,
     },
   });
 
-  return Typeo;
+  return Types;
 };

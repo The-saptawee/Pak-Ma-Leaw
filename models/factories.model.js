@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Factory = sequelize.define("factories", {
+  const Factories = sequelize.define("factories", {
     name: {
       type: Sequelize.STRING,
     },
@@ -16,15 +16,15 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
     },
     timeplant: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     finishplant: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     intendant: {
-      type: Sequelize.INTEGER
-    }
+      type: Sequelize.INTEGER,
+    },
   });
 
-  return Factory;
+  return Factories;
 };

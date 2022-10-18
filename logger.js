@@ -1,7 +1,9 @@
+require("dotenv").config();
+
 const winston = require("winston");
 const remoteLog = new winston.transports.Http({
   host: "localhost",
-  port: 3001,
+  port: process.env.PORT || 4000,
   path: "/errors",
 });
 
@@ -49,57 +51,3 @@ function getRequestLogFormatter() {
     })
   );
 }
-
-// const logger = createLogger({
-// level: "info",
-// format: format.combine(
-//   format.timestamp({
-//     format: "YYYY-MM-DD HH:mm:ss",
-//   }),
-//   format.printf((info) => `${info.timestamp} ${info.level}: ${info.message}`)
-// ),
-// transports: [
-//   new transports.Console({
-//     level: "info",
-//     format: format.combine(
-//       format.colorize(),
-//       format.printf(
-//         (info) => `${info.timestamp} ${info.level}: ${info.message}`
-//       )
-//     ),
-//   }),
-// ],
-// });
-
-// const { createLogger, format, transports } = require("winston");
-
-// app.use((req, res, next) => {
-//   let oldSend = res.send;
-//   console.log(res.statusCode);
-
-//   res.send = function (data) {
-//     console.log(data);
-//     oldSend.apply(res, arguments);
-//     // if (res.statusCode == 200) {
-// logger.info(
-// `Path: ${req.headers.host}${req.originalUrl}Status: ${
-//   res.statusCode
-// }, Method: ${req.method} Params: ${JSON.stringify(
-//   req.params
-// )}, Body: ${JSON.stringify(req.body)}, `,
-// { ...req.body, status: res.statusCode, data: data }
-// );
-//     // }
-//     // if (res.statusCode == 404) {
-//     //   logger.error(
-//     //     `Path: ${req.headers.host}${req.originalUrl},Status: ${
-//     //       res.statusCode
-//     //     },Method: ${req.method} Params: ${JSON.stringify(
-//     //       req.params
-//     //     )}, Body: ${JSON.stringify(req.body)}, `,
-//     //     { ...req.body, status: res.statusCode, data: data }
-//     //   );
-//     // }
-//   };
-//   next();
-// });

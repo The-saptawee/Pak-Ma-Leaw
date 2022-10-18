@@ -12,7 +12,6 @@ exports.create = (req, res) => {
     return;
   }
 
-  console.log("hihi");
   // Create a Tutorial
   const shipping = {
     transport: req.body.transport,
@@ -20,9 +19,8 @@ exports.create = (req, res) => {
     order_id: req.body.order_id,
     hr_id: req.body.hr_id,
     published: req.body.published ? req.body.published : false,
-
   };
-  console.log(shipping);
+
   // Save Tutorial in the database
   Shipping.create(shipping)
     .then((data) => {
@@ -101,8 +99,6 @@ exports.update = (req, res) => {
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-
-  console.log("delete");
   const id = req.params.id;
 
   Shipping.destroy({

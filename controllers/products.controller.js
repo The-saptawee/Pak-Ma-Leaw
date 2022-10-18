@@ -12,13 +12,12 @@ exports.create = (req, res) => {
     return;
   }
 
-  console.log("hihi");
   // Create a Tutorial
   const product = {
     factories_id: req.body.factories_id,
     published: req.body.published ? req.body.published : false,
   };
-  console.log(product);
+
   // Save Tutorial in the database
   Product.create(product)
     .then((data) => {
@@ -43,8 +42,7 @@ exports.findAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving Product.",
+        message: err.message || "Some error occurred while retrieving Product.",
       });
     });
 };
@@ -97,8 +95,6 @@ exports.update = (req, res) => {
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-
-  console.log("delete");
   const id = req.params.id;
 
   Product.destroy({

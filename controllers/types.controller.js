@@ -1,5 +1,5 @@
 const db = require("../models");
-const Typeo = db.typeo;
+const Types = db.types;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
@@ -12,22 +12,20 @@ exports.create = (req, res) => {
     return;
   }
 
-  console.log("hihi");
   // Create a Tutorial
   const type = {
-    name:req.body.name,
+    name: req.body.name,
     published: req.body.published ? req.body.published : false,
   };
-  console.log(type);
+
   // Save Tutorial in the database
-  Typeo.create(type)
+  Types.create(type)
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Type.",
+        message: err.message || "Some error occurred while creating the Type.",
       });
     });
 };
@@ -37,14 +35,13 @@ exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { title: { [Op.like]: `%${name}%` } } : null;
 
-  Typeo.findAll({ where: condition })
+  Types.findAll({ where: condition })
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving Type.",
+        message: err.message || "Some error occurred while retrieving Type.",
       });
     });
 };
@@ -53,7 +50,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Typeo.findByPk(id)
+  Types.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
@@ -74,7 +71,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Typeo.update(req.body, {
+  Types.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
@@ -97,11 +94,9 @@ exports.update = (req, res) => {
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-
-  console.log("delete");
   const id = req.params.id;
 
-  Typeo.destroy({
+  Types.destroy({
     where: { id: id },
   })
     .then((num) => {

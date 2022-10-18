@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "down": "",
+    "down": "echo \"work in progress\" && exit 1",
     "psql": "psql -U postgres -d pak_local"
   },
   "keywords": [

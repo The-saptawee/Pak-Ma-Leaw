@@ -12,7 +12,6 @@ exports.create = (req, res) => {
     return;
   }
 
-  console.log("hihi");
   // Create a Tutorial
   const hrs = {
     name: req.body.name,
@@ -29,7 +28,7 @@ exports.create = (req, res) => {
     role: req.body.role,
     published: req.body.published ? req.body.published : false,
   };
-  console.log(hrs);
+
   // Save Tutorial in the database
   Hrs.create(hrs)
     .then((data) => {
@@ -37,8 +36,7 @@ exports.create = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the hrs.",
+        message: err.message || "Some error occurred while creating the hrs.",
       });
     });
 };
@@ -54,8 +52,7 @@ exports.findAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving hrs.",
+        message: err.message || "Some error occurred while retrieving hrs.",
       });
     });
 };
@@ -108,8 +105,6 @@ exports.update = (req, res) => {
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-
-  console.log("delete");
   const id = req.params.id;
 
   Hrs.destroy({

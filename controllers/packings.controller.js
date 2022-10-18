@@ -1,36 +1,33 @@
 const db = require("../models");
-const Materails = db.materails;
+const Packings = db.packings;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name) {
+  if (!req.body.transport) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
     return;
   }
 
-  console.log("hihi");
   // Create a Tutorial
-  const materail = {
-    name: req.body.name,
-    type: req.body.type,
-    date: req.body.date,
-    hr_id: req.body.hr_id,
+  const packings = {
+    transport: req.body.transport,
+    arrived: req.body.arrived,
     published: req.body.published ? req.body.published : false,
   };
-  console.log(materail);
+
   // Save Tutorial in the database
-  Materails.create(materail)
+  Packings.create(packings)
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Materails.",
+          err.message || "Some error occurred while creating the Packing.",
       });
     });
 };
@@ -40,14 +37,13 @@ exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { title: { [Op.like]: `%${name}%` } } : null;
 
-  Materails.findAll({ where: condition })
+  Packings.findAll({ where: condition })
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving Materails.",
+        message: err.message || "Some error occurred while retrieving Packing.",
       });
     });
 };
@@ -56,19 +52,19 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Materails.findByPk(id)
+  Packings.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Materails with id=${id}.`,
+          message: `Cannot find Packing with id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Materails with id=" + id,
+        message: "Error retrieving Packing with id=" + id,
       });
     });
 };
@@ -77,50 +73,48 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Materails.update(req.body, {
+  Packings.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Materails was updated successfully.",
+          message: "Packing was updated successfully.",
         });
       } else {
         res.send({
-          message: `Cannot update Materails with id=${id}. Maybe Materails was not found or req.body is empty!`,
+          message: `Cannot update Packing with id=${id}. Maybe Packing was not found or req.body is empty!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Materails with id=" + id,
+        message: "Error updating Packing with id=" + id,
       });
     });
 };
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-
-  console.log("delete");
   const id = req.params.id;
 
-  Materails.destroy({
+  Packings.destroy({
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Materails was deleted successfully!",
+          message: "Packing was deleted successfully!",
         });
       } else {
         res.send({
-          message: `Cannot delete Materails with id=${id}. Maybe Materails was not found!`,
+          message: `Cannot delete Packing with id=${id}. Maybe Packing was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Materails with id=" + id,
+        message: "Could not delete Packing with id=" + id,
       });
     });
 };

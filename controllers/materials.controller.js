@@ -1,34 +1,35 @@
 const db = require("../models");
-const Packing = db.packing;
+const Materials = db.materials;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.transport) {
+  if (!req.body.name) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
     return;
   }
 
-  console.log("hihi");
   // Create a Tutorial
-  const packings = {
-    transport: req.body.transport,
-    arrived: req.body.arrived,
+  const materials = {
+    name: req.body.name,
+    type: req.body.type,
+    date: req.body.date,
+    hr_id: req.body.hr_id,
     published: req.body.published ? req.body.published : false,
   };
-  console.log(packings);
+
   // Save Tutorial in the database
-  Packing.create(packings)
+  Materials.create(materials)
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Packing.",
+          err.message || "Some error occurred while creating the materials.",
       });
     });
 };
@@ -38,14 +39,14 @@ exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { title: { [Op.like]: `%${name}%` } } : null;
 
-  Packing.findAll({ where: condition })
+  Materials.findAll({ where: condition })
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving Packing.",
+          err.message || "Some error occurred while retrieving materials.",
       });
     });
 };
@@ -54,19 +55,19 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Packing.findByPk(id)
+  Materials.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Packing with id=${id}.`,
+          message: `Cannot find materials with id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Packing with id=" + id,
+        message: "Error retrieving materials with id=" + id,
       });
     });
 };
@@ -75,50 +76,48 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Packing.update(req.body, {
+  Materials.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Packing was updated successfully.",
+          message: "materials was updated successfully.",
         });
       } else {
         res.send({
-          message: `Cannot update Packing with id=${id}. Maybe Packing was not found or req.body is empty!`,
+          message: `Cannot update materials with id=${id}. Maybe materials was not found or req.body is empty!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Packing with id=" + id,
+        message: "Error updating materials with id=" + id,
       });
     });
 };
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-
-  console.log("delete");
   const id = req.params.id;
 
-  Packing.destroy({
+  Materials.destroy({
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Packing was deleted successfully!",
+          message: "materials was deleted successfully!",
         });
       } else {
         res.send({
-          message: `Cannot delete Packing with id=${id}. Maybe Packing was not found!`,
+          message: `Cannot delete materials with id=${id}. Maybe materials was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Packing with id=" + id,
+        message: "Could not delete materials with id=" + id,
       });
     });
 };

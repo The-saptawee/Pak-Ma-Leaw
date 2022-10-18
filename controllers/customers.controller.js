@@ -12,7 +12,6 @@ exports.create = (req, res) => {
     return;
   }
 
-  console.log("hihi");
   // Create a Tutorial
   const customer = {
     name: req.body.name,
@@ -23,10 +22,10 @@ exports.create = (req, res) => {
     email: req.body.email,
     line: req.body.line,
     favorite: req.body.favorite,
-    date:req.body.date,
+    date: req.body.date,
     published: req.body.published ? req.body.published : false,
   };
-  console.log(customer);
+
   // Save Tutorial in the database
   Customers.create(customer)
     .then((data) => {
@@ -105,8 +104,6 @@ exports.update = (req, res) => {
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-
-  console.log("delete");
   const id = req.params.id;
 
   Customers.destroy({

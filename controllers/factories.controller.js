@@ -12,7 +12,6 @@ exports.create = (req, res) => {
     return;
   }
 
-  console.log("hihi");
   // Create a Tutorial
   const factories = {
     name: req.body.name,
@@ -22,10 +21,10 @@ exports.create = (req, res) => {
     typo: req.body.typo,
     timeplant: req.body.timeplant,
     finishplant: req.body.finishplant,
-    intendant:req.body.intendant,
+    intendant: req.body.intendant,
     published: req.body.published ? req.body.published : false,
   };
-  console.log(factories);
+
   // Save Tutorial in the database
   Factories.create(factories)
     .then((data) => {
@@ -104,8 +103,6 @@ exports.update = (req, res) => {
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-
-  console.log("delete");
   const id = req.params.id;
 
   Factories.destroy({
