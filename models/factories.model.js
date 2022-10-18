@@ -15,6 +15,15 @@ module.exports = (sequelize, Sequelize) => {
     typo: {
       type: Sequelize.INTEGER,
     },
+    timeplant: {
+      type: Sequelize.STRING
+    },
+    finishplant: {
+      type: Sequelize.STRING
+    },
+    intendant: {
+      type: Sequelize.INTEGER
+    }
   });
 
   return Factory;
