@@ -1,6 +1,5 @@
-const { role } = require("../models");
 const db = require("../models");
-const Hrs = db.hrs;
+const Records = db.records;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
@@ -14,30 +13,20 @@ exports.create = (req, res) => {
   }
 
   // Create a Tutorial
-  const hrs = {
+  const records = {
     name: req.body.name,
-    password: req.body.password,
-    address: req.body.address,
-    contact: req.body.contact,
-    education: req.body.education,
-    email: req.body.email,
-    policy: req.body.policy,
-    salary: req.body.salary,
-    date: req.body.date,
-    visit: req.body.visit,
-    train: req.body.train,
-    roleId: req.body.roleId,
     published: req.body.published ? req.body.published : false,
   };
 
   // Save Tutorial in the database
-  Hrs.create(hrs)
+  Records.create(records)
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while creating the hrs.",
+        message:
+          err.message || "Some error occurred while creating the record.",
       });
     });
 };
@@ -47,13 +36,13 @@ exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { title: { [Op.like]: `%${name}%` } } : null;
 
-  Hrs.findAll({ include: [role] })
+  Records.findAll({ where: condition })
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving hrs.",
+        message: err.message || "Some error occurred while retrieving record.",
       });
     });
 };
@@ -62,19 +51,19 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Hrs.findByPk(id)
+  Records.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Tutorial with id=${id}.`,
+          message: `Cannot find Records with id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Tutorial with id=" + id,
+        message: "Error retrieving Records with id=" + id,
       });
     });
 };
@@ -83,23 +72,23 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Hrs.update(req.body, {
+  Records.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was updated successfully.",
+          message: "Records was updated successfully.",
         });
       } else {
         res.send({
-          message: `Cannot update hrs with id=${id}. Maybe Tutorial was not found or req.body is empty!`,
+          message: `Cannot update Assets with id=${id}. Maybe Records was not found or req.body is empty!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating hrs with id=" + id,
+        message: "Error updating Records with id=" + id,
       });
     });
 };
@@ -108,23 +97,23 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Hrs.destroy({
+  Records.destroy({
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was deleted successfully!",
+          message: "Records was Delete successfully!",
         });
       } else {
         res.send({
-          message: `Cannot delete hrs with id=${id}. Maybe Tutorial was not found!`,
+          message: `Cannot delete Records with id=${id}. Maybe Records was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete hrs with id=" + id,
+        message: "Could not delete Records with id=" + id,
       });
     });
 };

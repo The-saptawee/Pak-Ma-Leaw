@@ -1,41 +1,41 @@
 module.exports = (sequelize, Sequelize) => {
   const Hrs = sequelize.define("hrs", {
     name: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     password: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     address: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     contact: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     email: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     education: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     policy: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     salary: {
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
     },
     date: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     visit: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     train: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
-    role: {
-      type: Sequelize.INTEGER
-    }
+    // role_id: {
+    //   type: Sequelize.INTEGER,
+    // },
   });
 
   return Hrs;
