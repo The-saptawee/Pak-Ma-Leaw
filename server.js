@@ -21,9 +21,11 @@ const assets = require("./controllers/assets.controller");
 const roles = require("./controllers/roles.controller");
 const types = require("./controllers/types.controller");
 const staff = require("./controllers/staff.controller");
-const record = require("./controllers/records.controller");
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 const PORT = process.env.PORT || 4000;
 const pathApi = "/api";
 
@@ -161,14 +163,6 @@ app.get(pathApi + "/", (req, res) => {
   app.get(pathApi + "/staff" + "/:id", staff.findOne);
   app.put(pathApi + "/staff" + "/edit/:id", staff.update);
   app.delete(pathApi + "/staff" + "/delete/:id", staff.delete);
-}
-// records api
-{
-  app.post(pathApi + "/record" + "/create", record.create);
-  app.get(pathApi + "/record" + "/", record.findAll);
-  app.get(pathApi + "/record" + "/:id", record.findOne);
-  app.put(pathApi + "/record" + "/edit/:id", record.update);
-  app.delete(pathApi + "/record" + "/delete/:id", record.delete);
 }
 
 // Run the server

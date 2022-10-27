@@ -33,7 +33,6 @@ db.packings = require("./packings.model")(sequelize, Sequelize);
 db.materials = require("./materials.model")(sequelize, Sequelize);
 db.assets = require("./assets.model")(sequelize, Sequelize);
 db.types = require("./types.model")(sequelize, Sequelize);
-db.records = require("./records.model")(sequelize, Sequelize);
 
 // db.role.hasOne(db.hrs, {
 //   foreignKey: { name: "role_id", field: "role_id" },
