@@ -34,23 +34,10 @@ db.materials = require("./materials.model")(sequelize, Sequelize);
 db.assets = require("./assets.model")(sequelize, Sequelize);
 db.types = require("./types.model")(sequelize, Sequelize);
 
-// db.role.hasOne(db.hrs, {
-//   foreignKey: { name: "role_id", field: "role_id" },
-// });
-
-db.role.hasOne(db.hrs);
-db.hrs.belongsTo(db.role);
+// relate
+db.role.hasOne(db.hrs, {
+  foreignKey: { name: "role_id", field: "role_id" },
+});
+db.hrs.belongsTo(db.role, { foreignKey: "role_id" });
 
 module.exports = db;
-
-// ส่วนนี้เป็นการตั้งต่า relation โดยเป็นการบอกว่าใน 1 team มีได้หลาย player ง่ายๆ ก็คือ relation แบบ 1:M
-//   db.team.hasMany(
-//     db.player,
-//     {
-//         foreignKey: { name: 'tid', field: 'tid' }, //name ตรงสำคัญพยายามตั่งให้เป็นชื่อเดียวกับ FK ใน table ที่นำไปใช้นะครับ
-//     }
-//   };
-
-// ส่วนนี้เป็นการตั้ง relation แบบกลับกันกับด้านบน จริงแล้วเราไม่ตั้งก็ได้แต่แนะนำให้ตั้งเอาไว้ เพราะเวลาที่เราไม่ได้ใส่
-// line นี้จะทำให้เราสามารถใช้  team ในการหา player ได้อย่างเดียวและไม่สามารถใช้ player หา team ได้
-//   db.player.belongsTo(db.team, { foreignKey: 'tid' });

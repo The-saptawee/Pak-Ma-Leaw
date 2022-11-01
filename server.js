@@ -35,7 +35,7 @@ app.use(cors());
 app.use(logger.requestLogger);
 
 db.sequelize
-  .sync() //{ force: true } reset database on save
+  .sync({ force: true }) //{ force: true } reset database on save
   .then(() => {
     console.log("Synced db.");
     console.log("Ready for Rock !! 👾 🤖");
