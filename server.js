@@ -101,13 +101,13 @@ app.use(
   app.put(pathApi + "/products" + "/edit/:id", products.update);
   app.delete(pathApi + "/products" + "/delete/:id", products.delete);
 }
-// Order_detials api
+// Order_details api
 {
-  app.post(pathApi + "/order_detials" + "/create", order_details.create);
-  app.get(pathApi + "/order_detials" + "/", order_details.findAll);
-  app.get(pathApi + "/order_detials" + "/:id", order_details.findOne);
-  app.put(pathApi + "/order_detials" + "/edit/:id", order_details.update);
-  app.delete(pathApi + "/order_detials" + "/delete/:id", order_details.delete);
+  app.post(pathApi + "/order/details" + "/create", order_details.create);
+  app.get(pathApi + "/order/details" + "/", order_details.findAll);
+  app.get(pathApi + "/order/details" + "/:id", order_details.findOne);
+  app.put(pathApi + "/order/details" + "/edit/:id", order_details.update);
+  app.delete(pathApi + "/order/details" + "/delete/:id", order_details.delete);
 }
 // Order
 {
@@ -127,52 +127,52 @@ app.use(
 }
 // vondor api
 {
-  app.post(pathApi + "/vondor" + "/create", vendors.create);
-  app.get(pathApi + "/vondor" + "/", vendors.findAll);
-  app.get(pathApi + "/vondor" + "/:id", vendors.findOne);
-  app.put(pathApi + "/vondor" + "/edit/:id", vendors.update);
-  app.delete(pathApi + "/vondor" + "/delete/:id", vendors.delete);
+  app.post(pathApi + "/vondors" + "/create", vendors.create);
+  app.get(pathApi + "/vondors" + "/", vendors.findAll);
+  app.get(pathApi + "/vondors" + "/:id", vendors.findOne);
+  app.put(pathApi + "/vondors" + "/edit/:id", vendors.update);
+  app.delete(pathApi + "/vondors" + "/delete/:id", vendors.delete);
 }
 // packing api
 {
-  app.post(pathApi + "/packing" + "/create", packings.create);
-  app.get(pathApi + "/packing" + "/", packings.findAll);
-  app.get(pathApi + "/packing" + "/:id", packings.findOne);
-  app.put(pathApi + "/packing" + "/edit/:id", packings.update);
-  app.delete(pathApi + "/packing" + "/delete/:id", packings.delete);
+  app.post(pathApi + "/packings" + "/create", packings.create);
+  app.get(pathApi + "/packings" + "/", packings.findAll);
+  app.get(pathApi + "/packings" + "/:id", packings.findOne);
+  app.put(pathApi + "/packings" + "/edit/:id", packings.update);
+  app.delete(pathApi + "/packings" + "/delete/:id", packings.delete);
 }
-// materail api
+// materials api
 {
-  app.post(pathApi + "/materail" + "/create", materials.create);
-  app.get(pathApi + "/materail" + "/", materials.findAll);
-  app.get(pathApi + "/materail" + "/:id", materials.findOne);
-  app.put(pathApi + "/materail" + "/edit/:id", materials.update);
-  app.delete(pathApi + "/materail" + "/delete/:id", materials.delete);
+  app.post(pathApi + "/materials" + "/create", materials.create);
+  app.get(pathApi + "/materials" + "/", materials.findAll);
+  app.get(pathApi + "/materials" + "/:id", materials.findOne);
+  app.put(pathApi + "/materials" + "/edit/:id", materials.update);
+  app.delete(pathApi + "/materials" + "/delete/:id", materials.delete);
 }
 // asset api
 {
-  app.post(pathApi + "/asset" + "/create", assets.create);
-  app.get(pathApi + "/asset" + "/", assets.findAll);
-  app.get(pathApi + "/asset" + "/:id", assets.findOne);
-  app.put(pathApi + "/asset" + "/edit/:id", assets.update);
-  app.delete(pathApi + "/asset" + "/delete/:id", assets.delete);
+  app.post(pathApi + "/assets" + "/create", assets.create);
+  app.get(pathApi + "/assets" + "/", assets.findAll);
+  app.get(pathApi + "/assets" + "/:id", assets.findOne);
+  app.put(pathApi + "/assets" + "/edit/:id", assets.update);
+  app.delete(pathApi + "/assets" + "/delete/:id", assets.delete);
 }
 // type api
 {
-  app.post(pathApi + "/type" + "/create", types.create);
-  app.get(pathApi + "/type" + "/", types.findAll);
-  app.get(pathApi + "/type" + "/:id", types.findOne);
-  app.put(pathApi + "/type" + "/edit/:id", types.update);
-  app.delete(pathApi + "/type" + "/delete/:id", types.delete);
+  app.post(pathApi + "/types" + "/create", types.create);
+  app.get(pathApi + "/types" + "/", types.findAll);
+  app.get(pathApi + "/types" + "/:id", types.findOne);
+  app.put(pathApi + "/types" + "/edit/:id", types.update);
+  app.delete(pathApi + "/types" + "/delete/:id", types.delete);
 }
 
 // staff api
 {
-  app.post(pathApi + "/staff" + "/create", staff.create);
-  app.get(pathApi + "/staff" + "/", staff.findAll);
-  app.get(pathApi + "/staff" + "/:id", staff.findOne);
-  app.put(pathApi + "/staff" + "/edit/:id", staff.update);
-  app.delete(pathApi + "/staff" + "/delete/:id", staff.delete);
+  app.post(pathApi + "/staffs" + "/create", staff.create);
+  app.get(pathApi + "/staffs" + "/", staff.findAll);
+  app.get(pathApi + "/staffs" + "/:id", staff.findOne);
+  app.put(pathApi + "/staffs" + "/edit/:id", staff.update);
+  app.delete(pathApi + "/staffs" + "/delete/:id", staff.delete);
 }
 
 // Run the server
