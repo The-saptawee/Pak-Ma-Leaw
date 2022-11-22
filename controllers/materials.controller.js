@@ -81,9 +81,21 @@ exports.update = (req, res) => {
   })
     .then((num) => {
       if (num == 1) {
-        res.send({
-          message: "materials was updated successfully.",
-        });
+        Materials.findByPk(id)
+          .then((data) => {
+            if (data) {
+              res.send(data);
+            } else {
+              res.status(404).send({
+                message: `Cannot find materials with id=${id}.`,
+              });
+            }
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message: "Error retrieving materials with id=" + id,
+            });
+          });
       } else {
         res.send({
           message: `Cannot update materials with id=${id}. Maybe materials was not found or req.body is empty!`,

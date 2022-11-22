@@ -81,9 +81,21 @@ exports.update = (req, res) => {
   })
     .then((num) => {
       if (num == 1) {
-        res.send({
-          message: "Shipping was updated successfully.",
-        });
+        Shipping.findByPk(id)
+          .then((data) => {
+            if (data) {
+              res.send(data);
+            } else {
+              res.status(404).send({
+                message: `Cannot find Shipping with id=${id}.`,
+              });
+            }
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message: "Error retrieving Shipping with id=" + id,
+            });
+          });
       } else {
         res.send({
           message: `Cannot update Shipping with id=${id}. Maybe Shipping was not found or req.body is empty!`,

@@ -77,9 +77,21 @@ exports.update = (req, res) => {
   })
     .then((num) => {
       if (num == 1) {
-        res.send({
-          message: "Order was updated successfully.",
-        });
+        Orders.findByPk(id)
+          .then((data) => {
+            if (data) {
+              res.send(data);
+            } else {
+              res.status(404).send({
+                message: `Cannot find Order with id=${id}.`,
+              });
+            }
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message: "Error retrieving Order with id=" + id,
+            });
+          });
       } else {
         res.send({
           message: `Cannot update Order with id=${id}. Maybe Order was not found or req.body is empty!`,

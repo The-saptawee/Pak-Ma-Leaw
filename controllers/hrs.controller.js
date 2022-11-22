@@ -88,9 +88,21 @@ exports.update = (req, res) => {
   })
     .then((num) => {
       if (num == 1) {
-        res.send({
-          message: "Tutorial was updated successfully.",
-        });
+        Hrs.findByPk(id)
+          .then((data) => {
+            if (data) {
+              res.send(data);
+            } else {
+              res.status(404).send({
+                message: `Cannot find Tutorial with id=${id}.`,
+              });
+            }
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message: "Error retrieving Tutorial with id=" + id,
+            });
+          });
       } else {
         res.send({
           message: `Cannot update hrs with id=${id}. Maybe Tutorial was not found or req.body is empty!`,

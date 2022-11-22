@@ -77,9 +77,21 @@ exports.update = (req, res) => {
   })
     .then((num) => {
       if (num == 1) {
-        res.send({
-          message: "Product was updated successfully.",
-        });
+        Product.findByPk(id)
+          .then((data) => {
+            if (data) {
+              res.send(data);
+            } else {
+              res.status(404).send({
+                message: `Cannot find Product with id=${id}.`,
+              });
+            }
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message: "Error retrieving Product with id=" + id,
+            });
+          });
       } else {
         res.send({
           message: `Cannot update Product with id=${id}. Maybe Product was not found or req.body is empty!`,

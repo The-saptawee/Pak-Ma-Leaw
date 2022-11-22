@@ -76,9 +76,21 @@ exports.update = (req, res) => {
   })
     .then((num) => {
       if (num == 1) {
-        res.send({
-          message: "Staff was updated successfully.",
-        });
+        Staff.findByPk(id)
+          .then((data) => {
+            if (data) {
+              res.send(data);
+            } else {
+              res.status(404).send({
+                message: `Cannot find staff with id=${id}.`,
+              });
+            }
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message: "Error retrieving staff with id=" + id,
+            });
+          });
       } else {
         res.send({
           message: `Cannot update Assets with id=${id}. Maybe Staff was not found or req.body is empty!`,

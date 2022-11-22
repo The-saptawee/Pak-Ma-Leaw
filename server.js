@@ -1,11 +1,15 @@
 require("dotenv").config();
 
-const express = require("express");
+const express = require("express"),
+  fs = require("fs");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const logger = require("./logger");
 
 const db = require("./models");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./doc/swagger.json");
+const customCss = fs.readFileSync(process.cwd() + "/doc/swagger.css", "utf8");
 
 const customers = require("./controllers/customers.controller");
 const hrs = require("./controllers/hrs.controller");
@@ -49,6 +53,12 @@ db.sequelize
 app.get(pathApi + "/", (req, res) => {
   res.json("Hello World form server pak");
 });
+// let express to use this
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, { customCss })
+);
 
 // role api
 {

@@ -81,14 +81,27 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
+  console.log(req.body);
   Customers.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
-        res.send({
-          message: "Tutorial was updated successfully.",
-        });
+        Customers.findByPk(id)
+          .then((data) => {
+            if (data) {
+              res.send(data);
+            } else {
+              res.status(404).send({
+                message: `Cannot find customer with id=${id}.`,
+              });
+            }
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message: "Error retrieving customer with id=" + id,
+            });
+          });
       } else {
         res.send({
           message: `Cannot update customer with id=${id}. Maybe customer was not found or req.body is empty!`,

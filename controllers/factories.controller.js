@@ -85,9 +85,21 @@ exports.update = (req, res) => {
   })
     .then((num) => {
       if (num == 1) {
-        res.send({
-          message: "Tutorial was updated successfully.",
-        });
+        Factories.findByPk(id)
+          .then((data) => {
+            if (data) {
+              res.send(data);
+            } else {
+              res.status(404).send({
+                message: `Cannot find factories with id=${id}.`,
+              });
+            }
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message: "Error retrieving factories with id=" + id,
+            });
+          });
       } else {
         res.send({
           message: `Cannot update factories with id=${id}. Maybe factories was not found or req.body is empty!`,

@@ -82,9 +82,21 @@ exports.update = (req, res) => {
   })
     .then((num) => {
       if (num == 1) {
-        res.send({
-          message: "Assets was updated successfully.",
-        });
+        Assets.findByPk(id)
+          .then((data) => {
+            if (data) {
+              res.send(data);
+            } else {
+              res.status(404).send({
+                message: `Cannot find Assets with id=${id}.`,
+              });
+            }
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message: "Error retrieving Assets with id=" + id,
+            });
+          });
       } else {
         res.send({
           message: `Cannot update Assets with id=${id}. Maybe Assets was not found or req.body is empty!`,

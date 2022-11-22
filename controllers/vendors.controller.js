@@ -81,9 +81,21 @@ exports.update = (req, res) => {
   })
     .then((num) => {
       if (num == 1) {
-        res.send({
-          message: "Vendor was updated successfully.",
-        });
+        Vendor.findByPk(id)
+          .then((data) => {
+            if (data) {
+              res.send(data);
+            } else {
+              res.status(404).send({
+                message: `Cannot find Vendor with id=${id}.`,
+              });
+            }
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message: "Error retrieving Vendor with id=" + id,
+            });
+          });
       } else {
         res.send({
           message: `Cannot update Vendor with id=${id}. Maybe Vendor was not found or req.body is empty!`,

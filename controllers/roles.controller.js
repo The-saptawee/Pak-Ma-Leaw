@@ -76,9 +76,21 @@ exports.update = (req, res) => {
   })
     .then((num) => {
       if (num == 1) {
-        res.send({
-          message: "Role was updated successfully.",
-        });
+        Role.findByPk(id)
+          .then((data) => {
+            if (data) {
+              res.send(data);
+            } else {
+              res.status(404).send({
+                message: `Cannot find Role with id=${id}.`,
+              });
+            }
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message: "Error retrieving Role with id=" + id,
+            });
+          });
       } else {
         res.send({
           message: `Cannot update Assets with id=${id}. Maybe Role was not found or req.body is empty!`,
