@@ -33,6 +33,7 @@ db.packings = require("./packings.model")(sequelize, Sequelize);
 db.materials = require("./materials.model")(sequelize, Sequelize);
 db.assets = require("./assets.model")(sequelize, Sequelize);
 db.types = require("./types.model")(sequelize, Sequelize);
+db.typepak = require("./typepak.model")(sequelize, Sequelize);
 
 // db.role.hasOne(db.hrs, {
 //   foreignKey: { name: "role_id", field: "role_id" },
@@ -40,6 +41,27 @@ db.types = require("./types.model")(sequelize, Sequelize);
 
 db.role.hasOne(db.hrs);
 db.hrs.belongsTo(db.role);
+
+db.types.hasOne(db.materials);
+db.materials.belongsTo(db.types);
+db.hrs.hasOne(db.materials);
+db.materials.belongsTo(db.hrs);
+
+db.types.hasOne(db.vendors);
+db.vendors.belongsTo(db.types);
+db.hrs.hasOne(db.vendors);
+db.vendors.belongsTo(db.hrs);
+
+db.hrs.hasOne(db.shippings);
+db.shippings.belongsTo(db.hrs);
+
+db.typepak.hasOne(db.factories);
+db.factories.belongsTo(db.typepak);
+
+db.order_details.hasOne(db.orders);
+db.orders.belongsTo(db.order_details);
+db.customers.hasOne(db.orders);
+db.orders.belongsTo(db.customers);
 
 module.exports = db;
 

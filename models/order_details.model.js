@@ -1,15 +1,15 @@
 module.exports = (sequelize, Sequelize) => {
   const Order_details = sequelize.define("order_details", {
-    date: {
+    name: {
       type: Sequelize.STRING,
     },
-    amount: {
-      type: Sequelize.INTEGER,
+    package: {
+      type: Sequelize.STRING,
     },
-    order_id: {
-      type: Sequelize.INTEGER,
+    pak: {
+      type: Sequelize.STRING,
     },
-    product_id: {
+    price: {
       type: Sequelize.INTEGER,
     },
   });

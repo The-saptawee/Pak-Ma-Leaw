@@ -1,6 +1,5 @@
 const db = require("../models");
-const { hrs, types } = require("../models/index");
-const Vendor = db.vendors;
+const Typepak = db.typepak;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
@@ -14,24 +13,19 @@ exports.create = (req, res) => {
   }
 
   // Create a Tutorial
-  const vendor = {
+  const type = {
     name: req.body.name,
-    typeId: req.body.typeId,
-    amount: req.body.amount,
-    date: req.body.date,
-    price: req.body.price,
-    hrId: req.body.hrId,
     published: req.body.published ? req.body.published : false,
   };
+
   // Save Tutorial in the database
-  Vendor.create(vendor)
+  Typepak.create(type)
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Vendor.",
+        message: err.message || "Some error occurred while creating the Type.",
       });
     });
 };
@@ -41,13 +35,13 @@ exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { title: { [Op.like]: `%${name}%` } } : null;
 
-  Vendor.findAll({ include: [types, hrs] })
+  Typepak.findAll({ where: condition })
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving Vendor.",
+        message: err.message || "Some error occurred while retrieving Type.",
       });
     });
 };
@@ -56,19 +50,19 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Vendor.findByPk(id)
+  Typepak.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Vendor with id=${id}.`,
+          message: `Cannot find Type with id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Vendor with id=" + id,
+        message: "Error retrieving Type with id=" + id,
       });
     });
 };
@@ -77,35 +71,35 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Vendor.update(req.body, {
+  Typepak.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
-        Vendor.findByPk(id)
+        Typepak.findByPk(id)
           .then((data) => {
             if (data) {
               res.send(data);
             } else {
               res.status(404).send({
-                message: `Cannot find Vendor with id=${id}.`,
+                message: `Cannot find Type with id=${id}.`,
               });
             }
           })
           .catch((err) => {
             res.status(500).send({
-              message: "Error retrieving Vendor with id=" + id,
+              message: "Error retrieving Type with id=" + id,
             });
           });
       } else {
         res.send({
-          message: `Cannot update Vendor with id=${id}. Maybe Vendor was not found or req.body is empty!`,
+          message: `Cannot update Type with id=${id}. Maybe Type was not found or req.body is empty!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Vendor with id=" + id,
+        message: "Error updating Type with id=" + id,
       });
     });
 };
@@ -114,23 +108,23 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Vendor.destroy({
+  Typepak.destroy({
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Vendor was deleted successfully!",
+          message: "Type was Delete successfully!",
         });
       } else {
         res.send({
-          message: `Cannot delete Vendor with id=${id}. Maybe Vendor was not found!`,
+          message: `Cannot delete Type with id=${id}. Maybe Type was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Vendor with id=" + id,
+        message: "Could not delete Type with id=" + id,
       });
     });
 };

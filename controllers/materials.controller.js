@@ -1,4 +1,5 @@
 const db = require("../models");
+const { types, hrs } = require("../models/index");
 const Materials = db.materials;
 const Op = db.Sequelize.Op;
 
@@ -15,9 +16,9 @@ exports.create = (req, res) => {
   // Create a Tutorial
   const materials = {
     name: req.body.name,
-    type: req.body.type,
+    typeId: req.body.typeId,
     date: req.body.date,
-    hr_id: req.body.hr_id,
+    hrId: req.body.hrId,
     published: req.body.published ? req.body.published : false,
   };
 
@@ -39,7 +40,7 @@ exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { title: { [Op.like]: `%${name}%` } } : null;
 
-  Materials.findAll({ where: condition })
+  Materials.findAll({ include: [types, hrs] })
     .then((data) => {
       res.send(data);
     })

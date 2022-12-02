@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.date) {
+  if (!req.body.name) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
@@ -14,10 +14,10 @@ exports.create = (req, res) => {
 
   // Create a Tutorial
   const order_details = {
-    date: req.body.date,
-    amount: req.body.amount,
-    order_id: req.body.order_id,
-    product_id: req.body.product_id,
+    name: req.body.name,
+    package: req.body.package,
+    pak: req.body.pak,
+    price: req.body.price,
     published: req.body.published ? req.body.published : false,
   };
 

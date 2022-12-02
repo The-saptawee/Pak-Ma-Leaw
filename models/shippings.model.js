@@ -9,9 +9,9 @@ module.exports = (sequelize, Sequelize) => {
     order_id: {
       type:Sequelize.INTEGER
     },
-    hr_id: {
-      type:Sequelize.INTEGER
-    }
+    // hr_id: {
+    //   type:Sequelize.INTEGER
+    // }
   });
 
   return Shipping;

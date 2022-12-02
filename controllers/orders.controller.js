@@ -1,11 +1,12 @@
 const db = require("../models");
+const { customers, order_details } = require("../models/index");
 const Orders = db.orders;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.customers_id) {
+  if (!req.body.orderDetailId) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
@@ -14,8 +15,8 @@ exports.create = (req, res) => {
 
   // Create a Tutorial
   const orders = {
-    customers_id: req.body.customers_id,
-    order_details_id: req.body.order_details_id,
+    customerId: req.body.customerId,
+    orderDetailId: req.body.orderDetailId,
     published: req.body.published ? req.body.published : false,
   };
 
@@ -36,7 +37,7 @@ exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { title: { [Op.like]: `%${name}%` } } : null;
 
-  Orders.findAll({ where: condition })
+  Orders.findAll({ include: [customers,order_details] })
     .then((data) => {
       res.send(data);
     })

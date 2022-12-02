@@ -1,4 +1,5 @@
 const db = require("../models");
+const { typepak } = require("../models/index");
 const Factories = db.factories;
 const Op = db.Sequelize.Op;
 
@@ -18,7 +19,7 @@ exports.create = (req, res) => {
     pit: req.body.pit,
     row: req.body.row,
     leg: req.body.leg,
-    typo: req.body.typo,
+    typepakId: req.body.typepakId,
     timeplant: req.body.timeplant,
     finishplant: req.body.finishplant,
     intendant: req.body.intendant,
@@ -43,7 +44,7 @@ exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { title: { [Op.like]: `%${name}%` } } : null;
 
-  Factories.findAll({ where: condition })
+  Factories.findAll({ include: [typepak] })
     .then((data) => {
       res.send(data);
     })
@@ -123,7 +124,7 @@ exports.delete = (req, res) => {
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "customer was deleted successfully!",
+          message: "factories was deleted successfully!",
         });
       } else {
         res.send({

@@ -3,15 +3,15 @@ module.exports = (sequelize, Sequelize) => {
     name: {
       type: Sequelize.STRING,
     },
-    type: {
-      type: Sequelize.INTEGER,
-    },
+    // type: {
+    //   type: Sequelize.INTEGER,
+    // },
     date: {
       type: Sequelize.STRING,
     },
-    hr_id: {
-      type: Sequelize.INTEGER,
-    },
+    // hr_id: {
+    //   type: Sequelize.INTEGER,
+    // },
   });
 
   return Materials;

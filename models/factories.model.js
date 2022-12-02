@@ -12,9 +12,9 @@ module.exports = (sequelize, Sequelize) => {
     leg: {
       type: Sequelize.INTEGER,
     },
-    typo: {
-      type: Sequelize.INTEGER,
-    },
+    // typo: {
+    //   type: Sequelize.INTEGER,
+    // },
     timeplant: {
       type: Sequelize.STRING,
     },

@@ -1,4 +1,5 @@
 const db = require("../models");
+const { hrs } = require("../models");
 const Shipping = db.shippings;
 const Op = db.Sequelize.Op;
 
@@ -17,7 +18,7 @@ exports.create = (req, res) => {
     transport: req.body.transport,
     arrived: req.body.arrived,
     order_id: req.body.order_id,
-    hr_id: req.body.hr_id,
+    hrId: req.body.hrId,
     published: req.body.published ? req.body.published : false,
   };
 
@@ -39,7 +40,7 @@ exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { title: { [Op.like]: `%${name}%` } } : null;
 
-  Shipping.findAll({ where: condition })
+  Shipping.findAll({ include: [hrs] })
     .then((data) => {
       res.send(data);
     })

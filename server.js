@@ -25,6 +25,9 @@ const assets = require("./controllers/assets.controller");
 const roles = require("./controllers/roles.controller");
 const types = require("./controllers/types.controller");
 const staff = require("./controllers/staff.controller");
+const user = require("./controllers/user.controller");
+const typepak = require("./controllers/typepak.controller");
+const loginusers = require("./controllers/userlogin.controller");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -103,11 +106,11 @@ app.use(
 }
 // Order_details api
 {
-  app.post(pathApi + "/order/details" + "/create", order_details.create);
-  app.get(pathApi + "/order/details" + "/", order_details.findAll);
-  app.get(pathApi + "/order/details" + "/:id", order_details.findOne);
-  app.put(pathApi + "/order/details" + "/edit/:id", order_details.update);
-  app.delete(pathApi + "/order/details" + "/delete/:id", order_details.delete);
+  app.post(pathApi + "/orderdetails" + "/create", order_details.create);
+  app.get(pathApi + "/orderdetails" + "/", order_details.findAll);
+  app.get(pathApi + "/orderdetails" + "/:id", order_details.findOne);
+  app.put(pathApi + "/orderdetails" + "/edit/:id", order_details.update);
+  app.delete(pathApi + "/orderdetails" + "/delete/:id", order_details.delete);
 }
 // Order
 {
@@ -165,6 +168,14 @@ app.use(
   app.put(pathApi + "/types" + "/edit/:id", types.update);
   app.delete(pathApi + "/types" + "/delete/:id", types.delete);
 }
+// typepak api
+{
+  app.post(pathApi + "/typepak" + "/create", typepak.create);
+  app.get(pathApi + "/typepak" + "/", typepak.findAll);
+  app.get(pathApi + "/typepak" + "/:id", typepak.findOne);
+  app.put(pathApi + "/typepak" + "/edit/:id", typepak.update);
+  app.delete(pathApi + "/typepak" + "/delete/:id", typepak.delete);
+}
 
 // staff api
 {
@@ -173,6 +184,13 @@ app.use(
   app.get(pathApi + "/staffs" + "/:id", staff.findOne);
   app.put(pathApi + "/staffs" + "/edit/:id", staff.update);
   app.delete(pathApi + "/staffs" + "/delete/:id", staff.delete);
+}
+
+{
+  app.post(pathApi + "/login", user.login);
+}
+{
+  app.post(pathApi + "/users/login", loginusers.login);
 }
 
 // Run the server

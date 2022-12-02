@@ -3,9 +3,9 @@ module.exports = (sequelize, Sequelize) => {
     name: {
       type: Sequelize.STRING,
     },
-    type: {
-      type: Sequelize.INTEGER,
-    },
+    // type: {
+    //   type: Sequelize.INTEGER,
+    // },
     amount: {
       type: Sequelize.INTEGER,
     },
@@ -15,9 +15,9 @@ module.exports = (sequelize, Sequelize) => {
     price: {
       type: Sequelize.INTEGER,
     },
-    hr_id: {
-      type: Sequelize.INTEGER,
-    },
+    // hr_id: {
+    //   type: Sequelize.INTEGER,
+    // },
   });
 
   return Vendor;
